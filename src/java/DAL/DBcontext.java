@@ -7,7 +7,7 @@ public class DBcontext {
     public static Connection getConnection() {
         Connection conn = null;
         try {
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=OrganicFoodDB"; 
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=Organic_Shop2"; 
             String user = "sa"; 
             String password = "sa";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

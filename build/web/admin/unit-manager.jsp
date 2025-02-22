@@ -38,119 +38,59 @@
                     </nav>
                     <main class="content px-3 py-4">
                         <div class="container-fluid">
-                            <div class="mb-3">
-                                <h3 class="fw-bold fs-1 mb-3">Unit Manager</h3>
-                                <h5 class="fw-light fs-3 mt-2">Search Condition</h5>
+                            <h3 class="fw-bold fs-1 mb-3">Unit Manager</h3>
+                            <h5 class="fw-light fs-3 mt-2">Search Condition</h5>
+                            <div class="mb-3 d-flex flex-row  justify-content-between">
                                 <form method="get" action="units">
-                                    <div class="fw-bold fs-3 mt-3 mb-3">
+                                    <div class="fw-bold fs-3 form-group">
                                         <label>Name</label>
                                         <label>:</label>
-                                        <input class="ms-3" type="text" name="name" placeholder="Input name of unit" value="${name}"/>
-                                    <button class="btn btn-success btn-lg ms-2">Search</button>
+                                        <label><input class="ms-3 form-control form-control-lg lg w-100" type="text" name="name" placeholder="Input name of unit" value="${name}"/></label>
+                                    <button class="btn btn-success btn-lg ms-4">Search</button>
                                 </div>
                                 <input type="hidden" name="index" value="${index}"/>
                             </form>
-
-                            <div class="roset w-25">
-                                <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#addUnitModal">Add new unit</button>
-                            </div>
-                            <div class="row card mb-4 mt-2">
-                                <div class="card-header ">
-                                    Unit Manage Table
-                                </div>
-                                <div class="col-12 card-body scrollable-table">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr class="highlight">
-                                                <th scope="col">#</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Description</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach items="${units}" var="u" varStatus="loop">
-                                                <tr>
-                                                    <th scope="row">${loop.index}</th>
-                                                    <td>${u.name}</td>
-                                                    <td>${u.description}</td>
-                                                    <td>
-                                                        <a href="#">
-                                                            <i class="fa fa-pencil-square-o fa-lg m-2" aria-hidden="true" 
-                                                               data-bs-toggle="modal" data-bs-target="#updateUnitModal" onclick="openUpdateUnitModal(${u.unitId})"></i>
-                                                        </a>
-                                                        <a href="#">
-                                                            <i class="fa fa-trash fa-lg m-2" aria-hidden="true"
-                                                               data-bs-toggle="modal" data-bs-target="#deleteUnitModal" onclick="openDeleteUnitModal(${u.unitId})"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                            </div>
-                            <!--                            <nav class="d-flex justify-content-center" aria-label="navigation">
-                                                            <ul class="pagination">
-                                                                <li class="page-item"><a class="page-link <c:if test="${index == 1}">disabled</c:if>" href="units?index=${index-1}">Previous</a></li>
-                            <c:choose>
-                                <c:when test="${index <= 4}">
-                                    <c:choose>
-                                        <c:when test="${total <= 5}">
-                                            <c:forEach begin="1" end="${total}" step="1" var="i">
-                                            <li class="page-item <c:if test="${i == index}">active</c:if>">
-                                                <a class="page-link" href="units?index=${i}">
-                                                ${i}
-                                            </a>
-                                        </li>
-                                            </c:forEach>
-                                        </c:when>
-                                        <c:when test="${total > 5}">
-                                            <c:forEach begin="1" end="${5}" step="1" var="i">
-                                                <li class="page-item <c:if test="${i == index}">active</c:if>">
-                                                    <a class="page-link" href="units?index=${i}">
-                                                ${i}
-                                            </a>
-                                        </li>
-                                            </c:forEach>
-                                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                            <li class="page-item"><a class="page-link" href="units?index=${total}">${total}</a></li>
-                                        </c:when>
-                                    </c:choose>
-                                </c:when>
-                                <c:when test="${total > 5 and index > 4 and index < (total-3)}">
-                                <li class="page-item"><a class="page-link" href="units?index=${1}">${1}</a></li>
-                                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                    <c:forEach begin="${index-2}" end="${index+2}" step="1" var="i">
-                                    <li class="page-item <c:if test="${i == index}">active</c:if>">
-                                        <a class="page-link" href="units?index=${i}">
-                                        ${i}
-                                    </a>
-                                </li>
-                                    </c:forEach>
-                                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                    <li class="page-item"><a class="page-link" href="units?index=${total}">${total}</a></li>
-                                </c:when>
-                                <c:when test="${total > 5 and index >= (total-3)}">
-                                <li class="page-item"><a class="page-link" href="units?index=${1}">${1}</a></li>
-                                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                    <c:forEach begin="${total - 4}" end="${total}" step="1" var="i">
-                                    <li class="page-item <c:if test="${i == index}">active</c:if>">
-                                        <a class="page-link" href="units?index=${i}">
-                                        ${i}
-                                    </a>
-                                </li>
-                                    </c:forEach>
-                                </c:when>
-                            </c:choose>
-
-                            <li class="page-item"><a class="page-link <c:if test="${index == total}">disabled</c:if>" href="units?index=${total}">Next</a></li>
-                        </ul>
-                    </nav>
-                </div>-->
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUnitModal">Add new unit</button>
                         </div>
+
+                        <div class="row card mb-4 mt-2">
+                            <div class="card-header ">
+                                Unit Manage Table
+                            </div>
+                            <div class="col-12 card-body scrollable-table table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr class="highlight">
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${units}" var="u" varStatus="loop">
+                                            <tr>
+                                                <th scope="row">${loop.index}</th>
+                                                <td>${u.name}</td>
+                                                <td>${u.description}</td>
+                                                <td>
+                                                    <a href="#">
+                                                        <i class="fa fa-pencil-square-o fa-lg m-2" aria-hidden="true" 
+                                                           data-bs-toggle="modal" data-bs-target="#updateUnitModal" onclick="openUpdateUnitModal(${u.unitId})"></i>
+                                                    </a>
+                                                    <a href="#">
+                                                        <i class="fa fa-trash fa-lg m-2" aria-hidden="true"
+                                                           data-bs-toggle="modal" data-bs-target="#deleteUnitModal" onclick="openDeleteUnitModal(${u.unitId})"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
                 </main>
                 <footer class="footer">
 
@@ -192,7 +132,7 @@
 
         <!--Update unit modal-->
         <div id="updateUnitModal" class="modal fade">
-            <div class="modal-dialog" style="margin-left: 450px;">
+            <div class="modal-dialog" style="margin-left: 800px;">
                 <div class="modal-content modal-add" style="width: 150%;">
                     <form action="updateUnit" method="post">
                         <div class="modal-header">						
@@ -225,7 +165,7 @@
 
         <!--Delete unit modal-->
         <div id="deleteUnitModal" class="modal fade">
-            <div class="modal-dialog" style="margin-left: 450px;">
+            <div class="modal-dialog" style="margin-left: 800px;">
                 <div class="modal-content modal-add" style="width: 150%;">
                     <form action="deleteUnit" method="get">
                         <div class="modal-header">						
@@ -237,7 +177,7 @@
                         </div>
                         <input id="deleteUnitId" type="hidden" name="id"/>
                         <div class="modal-footer">
-                            <input type="submit" class="btn btn-danger" value="Yes">
+                            <input type="submit" class="btn btn-danger" value="Yes" onclick = "handleDeleteItem(event)">
                             <input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Cancel">
                         </div>
                     </form>
@@ -248,7 +188,10 @@
 
         <script>
             function openUpdateUnitModal(id) {
+                $('#errorUpdateName').text("");
+                $('#errorUpdateDescription').text("");
                 $("#unitId").val(id);
+                // Đường dẫn gọi tới Update Unit lấy dữ liệu Unit cũ show lên trên Dialog, 
                 $.get("updateUnit?id=" + id, function (data) {
                     $("#updateUnitName").val(data.name);
                     $("#updateUnitDescription").val(data.description);
@@ -257,6 +200,18 @@
 
             function openDeleteUnitModal(id) {
                 $("#deleteUnitId").val(id);
+            }
+            
+            function handleDeleteItem(event) {
+                event.preventDefault();
+                let id = $("deleteUnitId").val();
+                $.get("deleteUnit?id=" + id, function (data, status)) {
+                    location.reload();
+                }).fail(function (err)) {
+                    console.log(err);
+                    alert(err.reponseText);
+                    $("#deleteUnitModal").modal("hide");
+                });
             }
 
             function onClickAddUnitModal(event) {
@@ -284,12 +239,18 @@
                     $.post("addUnit", {
                         name: name,
                         description: description
-                    }, function (data) {});
+                    }, function (data) {
+                        location.reload();
+                        }).fail(function (err)) {
+                        $('#errorUpdateName').text(err.responeText);
+                    });
                 }
 
             }
 
             function onClickUpdateUnitModal(event) {
+                $('#errorUpdateName').text("");
+                $('#errorUpdateDescription').text("");
                 event.preventDefault();
                 let id = $('#unitId').val();
                 let name = $('#updateUnitName').val();
@@ -312,11 +273,15 @@
                     $('#errorUpdateDescription').text("");
                 }
                 if (isValid) {
-//                    $.post("updateUnit", {
-//                        id: id,
-//                        name: name,
-//                        description: description
-//                    }, function (data) {})
+                    $.post("updateUnit", {
+                        id: id,
+                        name: name,
+                        description: description
+                    }, function (data) {
+                        location.reload();
+                    }).fail(function (err)) {
+                        $('#errorUpdateName').text(err.responeText);
+                    });
                 }
             }
         </script>

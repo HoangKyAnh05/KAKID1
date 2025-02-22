@@ -89,16 +89,33 @@ body {
 #sidebar.expand a.sidebar-link span {
     animation: fadeIn .25s ease;
 }
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
+.search-add-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+.search-field {
+    display : flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+.search-field {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.search-input {
+    width: 300px;
+    max-width: 100%;
+}
+.search-add-container form > div {
+    margin-right: 1rem;
+}
+.search-add-container form label {
+    font-weight: bold;
+}
+
 
 .sidebar-nav {
     padding: 2rem 0;

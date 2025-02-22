@@ -38,7 +38,7 @@ public class UnitsDAO extends DBcontext {
         }
         return unit;
     }
-    
+
     public List<Units> getAllUnit() {
         List<Units> units = new ArrayList<>();
         try {
@@ -64,37 +64,12 @@ public class UnitsDAO extends DBcontext {
         return units;
     }
 
-    public List<Units> getUnits() {
+    public List<Units> getUnitsByName(String name) {
 
         List<Units> units = new LinkedList<>();
-        String sql = "SELECT * FROM Units";
-
-        try (Connection conn = DBcontext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Units unit = new Units();
-                    unit.setUnitId(rs.getInt("unit_id"));
-                    unit.setName(rs.getString("name"));
-                    unit.setDescription(rs.getString("description"));
-                    units.add(unit);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return units;
-    }
-
-    public List<Units> getUnitsByPagingAndName(int index, int pageSize, String name) {
-
-        List<Units> units = new LinkedList<>();
-        String sql = "SELECT * FROM Units WHERE name like ? order by unit_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-
+        String sql = "SELECT * FROM Units WHERE name like ? ";
         try (Connection conn = DBcontext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, "%" + name + "%");
-            ps.setInt(2, (index - 1) * pageSize);
-            ps.setInt(3, pageSize);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Units unit = new Units();
@@ -171,5 +146,19 @@ public class UnitsDAO extends DBcontext {
         }
         return false;
     }
-}
 
+    public boolean checkUnitHasProduct(int unitId) {
+        String sql = "select * from  [Product] where unit_id = ?";
+        try (Connection conn = DBcontext.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, unitId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+}

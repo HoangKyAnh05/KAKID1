@@ -11,19 +11,24 @@ import java.util.Date;
  * @author ngoch
  */
 public class Suppliers {
-      private int supplierId;
+
+    private int supplierId;
     private String name;
-    private String contactInfo;
+    private String email;
+    private String phone;
+    private String supplyManager;
     private String address;
     private Date createdAt;
 
     public Suppliers() {
     }
 
-    public Suppliers(int supplierId, String name, String contactInfo, String address, Date createdAt) {
+    public Suppliers(int supplierId, String name, String email, String phone, String supplyManager, String address, Date createdAt) {
         this.supplierId = supplierId;
         this.name = name;
-        this.contactInfo = contactInfo;
+        this.email = email;
+        this.phone = phone;
+        this.supplyManager = supplyManager;
         this.address = address;
         this.createdAt = createdAt;
     }
@@ -44,14 +49,6 @@ public class Suppliers {
         this.name = name;
     }
 
-    public String getContactInfo() {
-        return contactInfo;
-    }
-
-    public void setContactInfo(String contactInfo) {
-        this.contactInfo = contactInfo;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -68,10 +65,28 @@ public class Suppliers {
         this.createdAt = createdAt;
     }
 
-    @Override
-    public String toString() {
-        return "Suppliers{" + "supplierId=" + supplierId + ", name=" + name + ", contactInfo=" + contactInfo + ", address=" + address + ", createdAt=" + createdAt + '}';
+    public String getEmail() {
+        return email;
     }
-    
-    
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSupplyManager() {
+        return supplyManager;
+    }
+
+    public void setSupplyManager(String supplyManager) {
+        this.supplyManager = supplyManager;
+    }
+
 }
